@@ -1,5 +1,5 @@
-import { Link } from '@inertiajs/react'
 import React from 'react';
+import { Link } from '@inertiajs/react'
 import { AdminHeader } from '../Components/AdminHeader.jsx';
 import { AdminSidebar } from '../Components/AdminSidebar.jsx';
 export const AdminLayout = ({children}) => {

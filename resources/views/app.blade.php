@@ -3,6 +3,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script src="{{url('/sweetalert2-11.10.1')}}/dist/sweetalert2.all.min.js"></script>
+    <link href="{{url('/sweetalert2-11.10.1')}}/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url('/fontawesome-free-6.6.0-web')}}/css/fontawesome.min.css">
+    <link rel="stylesheet" href="{{url('/fontawesome-free-6.6.0-web')}}/js/fontawesome.min.js">
     @viteReactRefresh
     @vite(['resources/css/app.css', 'resources/js/app.jsx'])
     @inertiaHead

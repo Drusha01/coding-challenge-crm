@@ -15,7 +15,7 @@ export const AdminSidebar = () => {
                         </li>
                         <li>
                             <Link href="/customer" className={url === "/customer" ?  "block px-4 py-2 rounded bg-gray-700 hover:bg-gray-700":"block px-4 py-2 rounded hover:bg-gray-700"} >
-                                Customer
+                                Customers
                             </Link>
                            
                         </li>
