@@ -35,6 +35,19 @@ const Customer = () => {
         contact_number: ''
     });
 
+    const HandleNextPage = () => {
+        setContent((prevContent) => ({
+            ...prevContent,
+            page:prevContent.page+1,
+        }));
+    }
+    const HandlePrevPage = () => {
+        setContent((prevContent) => ({
+            ...prevContent,
+            page:prevContent.page-1,
+        }));
+    }
+
     const handleFilterChange = (e)=> {
         const { name, value } = e.target;
         setContent((prevContent) => ({
@@ -55,6 +68,9 @@ const Customer = () => {
     useEffect(() => {
         GetData();
     }, [content.search]);
+    useEffect(() => {
+        GetData();
+    }, [content.page]);
 
     const GetData = ()=>{
         axios.post( "api/customer/all" , {  
@@ -331,8 +347,13 @@ const Customer = () => {
                                 ))}
                             </tbody>
                         </table>
-                        <div className="flex justify-center">
 
+                        <div className="flex justify-content-start pt-1">
+                            showing: {((content.page-1) * content.rows) + 1 } - {((content.page-1) * content.rows) + content.data.length} out of {content.total}
+                        </div>
+                        <div className="flex justify-center mt-1 gap-2">
+                            <button className={content.page !== 1 ?"px-3 py-2 border border-black bg-white rounded-md":"px-3 py-2 border border-black bg-gray-200 rounded-md"}  onClick={HandlePrevPage}  disabled={content.page === 1}>Prev</button>
+                            <button className={content.page !== Math.ceil(content.total / content.rows) ?"px-3 py-2 border border-black bg-white rounded-md":"px-3 py-2 border border-black bg-gray-200 rounded-md"} onClick={HandleNextPage} disabled={content.page === Math.ceil(content.total / content.rows)}>Next</button>
                         </div>
                     </div>
                 </div>
