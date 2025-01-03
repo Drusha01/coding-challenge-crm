@@ -17,6 +17,7 @@ const Customer = () => {
         total:0,
         page:1,
         rows:10,
+        search:"",
     });
     const openAddModal = () => setIsAddModalOpen(true);
     const closeAddModal = () => setIsAddModalOpen(false);
@@ -34,7 +35,7 @@ const Customer = () => {
         contact_number: ''
     });
 
-    const handleRowChange = (e)=> {
+    const handleFilterChange = (e)=> {
         const { name, value } = e.target;
         setContent((prevContent) => ({
             ...prevContent,
@@ -51,17 +52,22 @@ const Customer = () => {
     useEffect(() => {
         GetData();
     }, [content.rows]);
-    
+    useEffect(() => {
+        GetData();
+    }, [content.search]);
 
     const GetData = ()=>{
-        var search = document.getElementById('search').value;
         axios.post( "api/customer/all" , {  
             rows: content.rows,
-            search: search,
+            search: content.search,
             page: content.page,
         })
         .then(res => {
-            setContent(res.data)
+            setContent((prevContent) => ({
+                ...prevContent,
+                data: res.data.data,
+                total:res.data.total,
+              }));
         })
         .catch(function (error) {
             if (error.response && error.response.status === 422) {
@@ -275,8 +281,8 @@ const Customer = () => {
                 <h2 className="text-2xl font-semibold mb-4">Customers</h2>
                 <div className="p-6 bg-gray-100 h-auto">
                     <div className="flex justify-start">
-                        <input type="text" name="search" id="search" className="rounded-lg w-1/5" placeholder="search ..." onKeyPress={GetData} />
-                        <select name="rows" className="rounded-lg mx-2" id="rows" value={content.rows} onChange={handleRowChange}>
+                        <input type="text" name="search" id="search" className="rounded-lg w-1/5" placeholder="search ..."  value={content.search} onChange={handleFilterChange} />
+                        <select name="rows" className="rounded-lg mx-2" id="rows" value={content.rows} onChange={handleFilterChange}>
                             <option value="10">10 rows</option>
                             <option value="30">30 rows</option>
                             <option value="50">50 rows</option>

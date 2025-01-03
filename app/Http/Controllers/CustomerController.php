@@ -41,7 +41,8 @@ class CustomerController extends Controller
             'data' => $customers,
             'total' =>$total,
             'page' =>$page,
-            'rows'=>$rows
+            'rows'=>$rows,
+            'search'=>$search
         ], 200);
     }
 
